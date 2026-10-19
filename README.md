@@ -127,5 +127,3 @@ No external packages are required for the current example.
 ## Conclusion
 
 This project introduces Python's `TypedDict` through a simple example. It demonstrates how developers can describe the expected structure of dictionaries and build a foundation for working with structured data in Python and Generative AI applications.
-
-**Repository:** [typeddict_demo](https://github.com/mani787060/typeddict_demo)
