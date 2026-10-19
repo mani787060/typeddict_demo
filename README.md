@@ -1,32 +1,131 @@
-# Structured LLM Outputs with TypedDict
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
-[![LangChain](https://img.shields.io/badge/Framework-LangChain-green)](https://www.langchain.com/)
-[![Gemini](https://img.shields.io/badge/Model-Google%20Gemini-4285F4)](https://ai.google.dev/)
+# Python TypedDict Demo
 
-## 🏗️ Project Overview
-This repository demonstrates how to extract **Structured Data** from LLMs using Python's native `TypedDict`. While Pydantic is excellent for complex validation, `TypedDict` offers a more lightweight approach for developers who prefer working with standard Python dictionaries while maintaining high levels of type-safety and IDE support.
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Topic](https://img.shields.io/badge/Topic-Type%20Hints-orange)
+![Generative AI](https://img.shields.io/badge/Generative%20AI-Structured%20Output-purple)
 
----
+## Overview
 
-## 🛠️ Key Technical Implementations
+This project demonstrates how to use Python's `TypedDict` to describe the expected structure of dictionary objects.
 
-### 1. Native Schema Definition
-* **Standard Python Types:** Using `TypedDict` to define the expected keys and value types (str, int, list, etc.) without external dependencies.
-* **Optionality:** Leveraging `Required` and `NotRequired` (Python 3.11+) to tell the LLM which data points are mandatory.
+In Generative AI applications, language models often return information that needs to be organized into predictable fields. `TypedDict` helps developers document the expected keys and value types, making code easier to understand and maintain.
 
-### 2. Structured Extraction Pipeline
-* **`with_structured_output` Integration:** Seamlessly binding the TypedDict class to the Gemini Pro model via LangChain.
-* **Dictionary Transformation:** Automatically parsing the LLM's raw response into a dictionary that matches the defined schema.
+The current implementation uses a simple `Person` example with two fields: `name` and `age`.
 
-### 3. Lightweight vs. Heavyweight Validation
-* **Comparison:** Demonstrating the trade-offs between `TypedDict` (speed/simplicity) and `Pydantic` (strict validation/parsing).
+## Objectives
 
----
+- Understand Python's `TypedDict`.
+- Define the expected keys and value types of a dictionary.
+- Learn how type hints improve code readability.
+- Explore the foundation of structured data representation in Python.
+- Understand how typed dictionary schemas can be applied in LLM-based applications.
 
-## 💻 Tech Stack
-* **Language:** Python 3.9+
-* **Orchestration:** LangChain (`langchain-core`, `langchain-google-genai`)
-* **Core Logic:** Python `typing.TypedDict`
-* **Model:** Google Gemini Pro
-* **Environment:** `python-dotenv`
+## Implementation
 
+The project defines a `Person` type using `TypedDict`:
+
+```python
+from typing import TypedDict
+
+class Person(TypedDict):
+    name: str
+    age: int
+
+new_person: Person = {
+    "name": "nitish",
+    "age": "35"
+}
+
+print(new_person)
+```
+
+### How It Works
+
+1. **Import `TypedDict`:** Makes the feature available from Python's `typing` module.
+2. **Define the schema:** The `Person` class specifies that `name` should be a string and `age` should be an integer.
+3. **Create a dictionary:** `new_person` stores the values using the expected keys.
+4. **Print the result:** The dictionary is displayed in the terminal.
+
+**Important:** In the current example, `"35"` is a string, not an integer. Python's `TypedDict` does not automatically validate or convert values at runtime. To match the declared type, use `35` without quotation marks.
+
+## Expected Output
+
+```text
+{'name': 'nitish', 'age': '35'}
+```
+
+The output reflects the values exactly as they are stored in the dictionary.
+
+## What Is TypedDict?
+
+`TypedDict` is a Python typing feature that describes the expected structure of a dictionary.
+
+For example:
+
+- `name: str` indicates that the name should be a string.
+- `age: int` indicates that the age should be an integer.
+
+It helps static type checkers and compatible development tools identify potential type mismatches. However, it does not enforce those types automatically when the program runs.
+
+## TypedDict and Pydantic
+
+Both `TypedDict` and Pydantic can describe structured data, but they serve different purposes.
+
+| Feature | TypedDict | Pydantic |
+|---|---|---|
+| Main purpose | Describe dictionary structure | Validate and parse data |
+| Runtime validation | Not automatic | Supported |
+| Type checking | Supports static type checking | Supports typed models and runtime validation |
+| Automatic type conversion | No | Possible for supported fields and configurations |
+| Typical use | Lightweight type hints | Data validation and structured application inputs |
+
+In LLM applications, LangChain can use a `TypedDict` schema with supported models to guide structured output generation. This repository's current `app.py`, however, demonstrates only a plain Python dictionary and does not call an LLM.
+
+## Technologies Used
+
+- Python
+- `typing.TypedDict`
+- Python dictionaries
+
+## Installation and Usage
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/mani787060/typeddict_demo.git
+cd typeddict_demo
+```
+
+### 2. Run the script
+
+If your Python file is named `app.py`, run:
+
+```bash
+python app.py
+```
+
+No external packages are required for the current example.
+
+## Applications
+
+`TypedDict` can be useful for describing data structures used in:
+
+- API request and response objects
+- Configuration dictionaries
+- Data processing pipelines
+- LLM input and output schemas
+- Applications that benefit from static type checking
+
+## Future Improvements
+
+- Correct the age value to an integer.
+- Add examples with optional and required dictionary fields.
+- Demonstrate static type checking with tools such as mypy or Pyright.
+- Integrate a `TypedDict` schema with LangChain's `with_structured_output()` method.
+- Compare LLM structured output using `TypedDict` and Pydantic.
+
+## Conclusion
+
+This project introduces Python's `TypedDict` through a simple example. It demonstrates how developers can describe the expected structure of dictionaries and build a foundation for working with structured data in Python and Generative AI applications.
+
+**Repository:** [typeddict_demo](https://github.com/mani787060/typeddict_demo)
